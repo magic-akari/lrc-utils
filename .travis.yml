@@ -19,7 +19,7 @@ deploy:
       skip-cleanup: true
       github-token: $GITHUB_TOKEN
       local-dir: build
-      repo: lrc-maker/lrc-parser
+      repo: lrc-maker/lrc-utils
       target-branch: master
       on:
           branch: master

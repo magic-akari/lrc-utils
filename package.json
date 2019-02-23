@@ -1,0 +1,19 @@
+{
+    "name": "lrc-utils",
+    "version": "0.0.1",
+    "description": "lrc-utils for lrc-maker",
+    "repository": "https://github.com/magic-akari/lrc-utils.git",
+    "author": "magic-akari <hufan.akarin@gmail.com>",
+    "license": "MIT",
+    "scripts": {
+        "start": "tsc -b -w",
+        "build": "tsc -b",
+        "postbuild": "cp src/*.html src/*.css build/"
+    },
+    "dependencies": {
+        "@lrc-maker/lrc-parser": "^0.1.1"
+    },
+    "devDependencies": {
+        "typescript": "^3.3.3"
+    }
+}

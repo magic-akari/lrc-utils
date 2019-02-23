@@ -1,1 +1,1 @@
-# lrc-utils
+# lrc-utils &middot; [![Build Status](https://travis-ci.org/magic-akari/lrc-utils.svg?branch=master)](https://travis-ci.org/magic-akari/lrc-utils)

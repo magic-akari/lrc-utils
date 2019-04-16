@@ -1,0 +1,225 @@
+:root {
+    --white: #eee;
+    --black: #111;
+    --theme-color: #f58ea8;
+    --font-color: var(--black);
+    --background-color: #f1f3f4;
+    --semi-black-color: rgba(32, 32, 32, 0.8);
+    --semi-white-color: hsla(0, 0%, 87.8%, 0.8);
+    --border-radius: 0.4rem;
+    --animation-out-back: cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: var(--black);
+        --font-color: var(--white);
+    }
+}
+
+body,
+html {
+    height: 100%;
+    background: #f1f3f4;
+    background: var(--background-color);
+}
+
+.app-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(40, 40, 40, 0.85);
+    color: #f58ea8;
+    color: var(--theme-color);
+    z-index: 233;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    box-shadow: 0 1px 1px #f58ea8;
+    box-shadow: 0 1px 1px var(--theme-color);
+}
+
+body {
+    display: flex;
+    background: #f1f3f4;
+    background: var(--background-color);
+}
+
+.app-main {
+    flex: 1 0 auto;
+    display: flex;
+}
+
+.icon {
+    color: #eee;
+    color: var(--white);
+    cursor: default;
+    min-height: 60px;
+    min-width: 60px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.icon > svg {
+    fill: currentColor;
+    margin: 0;
+    height: 30px;
+    width: 30px;
+}
+
+textarea {
+    color: #111;
+    color: var(--font-color);
+    background: transparent;
+    padding: 70px 10px 10px;
+    flex: 1 1 auto;
+    resize: none;
+    border: none;
+    opacity: 0.8;
+}
+textarea:focus {
+    opacity: 1;
+}
+
+button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: 0;
+    border: 0;
+    margin: 0;
+    padding: 0.5rem;
+    outline: 0;
+}
+
+.button-group {
+    height: 100%;
+    display: flex;
+    overflow-x: auto;
+    overflow-x: overlay;
+    overflow-y: hidden;
+}
+
+.button-group > button {
+    color: #eee;
+    color: var(--white);
+    height: 60px;
+    flex: 0 0 auto;
+}
+
+.dialog {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin: auto;
+    z-index: 1000;
+    border-radius: 0.4rem;
+    border-radius: var(--border-radius);
+    background: hsla(0, 0%, 87.8%, 0.8);
+    background: var(--semi-white-color);
+    box-shadow: 0 0 1rem #f58ea8, 0 0 0 100vmax rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 1rem var(--theme-color), 0 0 0 100vmax rgba(0, 0, 0, 0.4);
+}
+.dialog[open] {
+    display: block;
+    animation: dialogSlideIn 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    animation: dialogSlideIn 0.25s var(--animation-out-back);
+}
+.dialog > summary {
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+.dialog > section {
+    padding: 1rem;
+}
+
+fieldset {
+    border: 1px dashed #f58ea8;
+    border: 1px dashed var(--theme-color);
+}
+
+input[type="number"] {
+    background: 0;
+    border: 0;
+    border-bottom: 1px solid #f58ea8;
+    border-bottom: 1px solid var(--theme-color);
+    text-align: center;
+    width: 6rem;
+}
+
+.split-translation {
+    width: 25rem;
+}
+
+.split-translation input {
+    width: 100%;
+    margin: 0.5rem 0;
+    display: block;
+}
+
+input[type="radio"]:after {
+    content: attr(title);
+    padding-left: 2rem;
+    width: 20rem;
+}
+
+#regex {
+    background: 0;
+    border: 0;
+    border-bottom: 1px solid #f58ea8;
+    border-bottom: 1px solid var(--theme-color);
+}
+
+@keyframes dialogSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.ripple {
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0);
+}
+.ripple:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, #000 10%, transparent 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10);
+    opacity: 0;
+    transition: transform 0.5s, opacity 1s;
+}
+.ripple:active:after {
+    transform: scale(0);
+    opacity: 0.2;
+    transition: 0s;
+}

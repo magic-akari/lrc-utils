@@ -95,10 +95,19 @@ button {
     outline: 0;
 }
 
+.button-group {
+    height: 100%;
+    display: flex;
+    overflow-x: auto;
+    overflow-x: overlay;
+    overflow-y: hidden;
+}
+
 .button-group > button {
     color: #eee;
     color: var(--white);
     height: 60px;
+    flex: 0 0 auto;
 }
 
 .dialog {

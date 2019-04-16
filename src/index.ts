@@ -1,4 +1,4 @@
-import { parser, stringify, ILyric } from "./lrc-parser/lrc-parser.js";
+import { parser, stringify, ILyric } from "./lrc-parser.js";
 
 const $ = (arg: string) => document.querySelector(arg);
 

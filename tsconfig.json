@@ -13,5 +13,5 @@
     },
     "include": ["src"],
     "exclude": ["src/lrc-parser"],
-    "references": [{ "path": "./src/lrc-parser" }]
+    "references": [{ "path": "./src/lrc-parser.js" }]
 }

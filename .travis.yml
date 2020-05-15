@@ -9,16 +9,14 @@ before_deploy:
 
 deploy:
     - provider: pages
-      skip-cleanup: true
-      github-token: $GITHUB_TOKEN
-      local-dir: build
+      edge: true
+      local_dir: build
       on:
           branch: master
 
     - provider: pages
-      skip-cleanup: true
-      github-token: $GITHUB_TOKEN
-      local-dir: build
+      edge: true
+      local_dir: build
       repo: lrc-maker/lrc-utils
       target-branch: master
       on:

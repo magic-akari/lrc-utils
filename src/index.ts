@@ -1,4 +1,5 @@
-import { parser, stringify, ILyric } from "./lrc-parser.js";
+import { compressTags } from "./compress-tags.js";
+import { ILyric, parser, stringify } from "./lrc-parser.js";
 
 const $ = (arg: string) => document.querySelector(arg);
 
@@ -60,8 +61,13 @@ actions.addEventListener("click", (ev) => {
     const lrc = state.lrc;
 
     switch (action) {
+        case "compressTags": {
+            output.value = compressTags(lrc, formatOptions);
+            return;
+        }
+
         case "removeTags": {
-            const info = new Map();
+            const info = new Map<string, string>();
             const lyric = lrc.lyric.map((line) => {
                 return {
                     text: line.text,

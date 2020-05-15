@@ -3,6 +3,7 @@
     "compilerOptions": {
         "composite": true,
         "rootDir": "../../node_modules/@lrc-maker/lrc-parser/src",
+        "tsBuildInfoFile": "../../build/lrc-parser.tsbuildinfo"
     },
     "include": ["../../node_modules/@lrc-maker/lrc-parser"],
     "exclude": []

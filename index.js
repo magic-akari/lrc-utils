@@ -1,3 +1,4 @@
+import { compressTags } from "./compress-tags.js";
 import { parser, stringify } from "./lrc-parser.js";
 const $ = (arg) => document.querySelector(arg);
 const back = $(".back");
@@ -38,6 +39,10 @@ actions.addEventListener("click", (ev) => {
     }
     const lrc = state.lrc;
     switch (action) {
+        case "compressTags": {
+            output.value = compressTags(lrc, formatOptions);
+            return;
+        }
         case "removeTags": {
             const info = new Map();
             const lyric = lrc.lyric.map((line) => {
@@ -93,7 +98,10 @@ timeTransform.addEventListener("input", (ev) => {
     const info = lrc.info;
     const lyric = lrc.lyric.map((line) => {
         if (line.time !== undefined) {
-            return Object.assign({}, line, { time: scale.a * line.time + scale.c });
+            return {
+                ...line,
+                time: scale.a * line.time + scale.c,
+            };
         }
         return line;
     });
@@ -116,8 +124,8 @@ splitTranslation.addEventListener("change", (ev) => {
         const [lyric1, lyric2] = lrc.lyric.reduce((p, line) => {
             const result = line.text.match(regex);
             if (result !== null && result.length >= 3) {
-                p[0].push(Object.assign({}, line, { text: result[1] }));
-                p[1].push(Object.assign({}, line, { text: result[2] }));
+                p[0].push({ ...line, text: result[1] });
+                p[1].push({ ...line, text: result[2] });
             }
             else {
                 p[0].push(line);

@@ -11,20 +11,14 @@ export interface ILyric {
 }
 export declare type State = Readonly<{
     info: Map<string, string>;
-    lyric: Array<Readonly<ILyric>>;
+    lyric: readonly ILyric[];
 }>;
 export declare type TrimOptios = Partial<{
     trimStart: boolean;
     trimEnd: boolean;
 }>;
-export declare const parser: (lrcString: string, option?: Partial<{
-    trimStart: boolean;
-    trimEnd: boolean;
-}>) => Readonly<{
-    info: Map<string, string>;
-    lyric: Readonly<ILyric>[];
-}>;
-export declare const convertTimeToTag: (time: number | undefined, fixed: import("@lrc-maker/lrc-parser").Fixed, withBrackets?: boolean) => string;
+export declare const parser: (lrcString: string, option?: TrimOptios) => State;
+export declare const convertTimeToTag: (time: number | undefined, fixed: Fixed, withBrackets?: boolean) => string;
 export declare const formatText: (text: string, spaceStart: number, spaceEnd: number) => string;
 export interface IFormatOptions {
     spaceStart: number;
@@ -32,7 +26,4 @@ export interface IFormatOptions {
     fixed: Fixed;
     endOfLine?: "\n" | "\r\n" | "\r";
 }
-export declare const stringify: (state: Readonly<{
-    info: Map<string, string>;
-    lyric: Readonly<ILyric>[];
-}>, option: IFormatOptions) => string;
+export declare const stringify: (state: State, option: IFormatOptions) => string;

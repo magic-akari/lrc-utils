@@ -1,7 +1,7 @@
 export const parser = (lrcString, option = {}) => {
     const { trimStart = false, trimEnd = false } = option;
     const lines = lrcString.split(/\r\n|\n|\r/);
-    const timeTag = /\[\s*(\d{1,3}):(\d{1,2}(?:[:.]\d{1,3})?)\s*]/y;
+    const timeTag = /\[\s*(\d{1,3}):(\d{1,2}(?:[:.]\d{1,3})?)\s*]/g;
     const infoTag = /\[\s*(\w{1,6})\s*:(.*?)]/;
     const info = new Map();
     const lyric = [];
@@ -49,18 +49,19 @@ export const parser = (lrcString, option = {}) => {
     }
     return { info, lyric };
 };
-const storedFormaTter = new Map();
+const storedFormatter = new Map();
 const getFormatter = (fixed) => {
-    if (storedFormaTter.has(fixed)) {
-        return storedFormaTter.get(fixed);
+    if (storedFormatter.has(fixed)) {
+        return storedFormatter.get(fixed);
     }
     else {
         const newFormatter = new Intl.NumberFormat("en", {
             minimumIntegerDigits: 2,
             minimumFractionDigits: fixed,
             maximumFractionDigits: fixed,
+            useGrouping: false,
         });
-        storedFormaTter.set(fixed, newFormatter);
+        storedFormatter.set(fixed, newFormatter);
         return newFormatter;
     }
 };

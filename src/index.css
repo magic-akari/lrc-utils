@@ -1,6 +1,6 @@
 :root {
-    --white: #eee;
-    --black: #111;
+    --white: #eeeeee;
+    --black: #111111;
     --theme-color: #f58ea8;
     --font-color: var(--black);
     --background-color: #f1f3f4;
@@ -17,10 +17,10 @@
     }
 }
 
-@font-face {
-    font-family: "Akari Number";
-    src: local("Helvetica Neue"), local("Helvetica");
-    unicode-range: U+30-39;
+:root,
+textarea,
+input {
+    font-variant-numeric: tabular-nums;
 }
 
 @font-face {
@@ -31,7 +31,8 @@
 
 html {
     color: var(--font-color);
-    font-family: "Akari Number", -apple-system, BlinkMacSystemFont, "Akari Fallback Text", system-ui, sans-serif,
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, "Akari Fallback UI", "PingFang SC", "Microsoft YaHei UI",
+        "Microsoft YaHei", "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei", sans-serif,
         "Apple Color Emoji", "Segoe UI Emoji";
     font-feature-settings: "kern" 1;
     font-kerning: normal;
@@ -81,7 +82,7 @@ body {
     justify-content: center;
     min-width: 60px;
     min-height: 60px;
-    color: #eee;
+    color: #eeeeee;
     color: var(--white);
     cursor: default;
 }
@@ -96,15 +97,17 @@ body {
 textarea {
     flex: 1 1 auto;
     padding: 70px 10px 10px;
-    color: #111;
+    color: #111111;
     color: var(--font-color);
     background: transparent;
     border: none;
+    outline: 0;
     opacity: 0.8;
     resize: none;
 }
 
 textarea:focus {
+    box-shadow: inset 0 0 3px 3px var(--theme-color);
     opacity: 1;
 }
 
@@ -130,7 +133,7 @@ button {
 .button-group > button {
     flex: 0 0 auto;
     height: 60px;
-    color: #eee;
+    color: #eeeeee;
     color: var(--white);
 }
 
@@ -159,8 +162,8 @@ button {
 
 .dialog[open] {
     display: block;
-    animation: dialogSlideIn 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-    animation: dialogSlideIn 0.25s var(--animation-out-back);
+    animation: dialog-slide-in 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    animation: dialog-slide-in 0.25s var(--animation-out-back);
 }
 
 .dialog > summary {
@@ -214,7 +217,7 @@ input[type="radio"]::after {
     border-bottom: 1px solid var(--theme-color);
 }
 
-@keyframes dialogSlideIn {
+@keyframes dialog-slide-in {
     0% {
         transform: translateY(100%);
         opacity: 0;
@@ -238,7 +241,7 @@ input[type="radio"]::after {
     display: block;
     width: 100%;
     height: 100%;
-    background-image: radial-gradient(circle, #000 10%, transparent 10.01%);
+    background-image: radial-gradient(circle, #000000 10%, transparent 10.01%);
     background-repeat: no-repeat;
     background-position: 50%;
     transform: scale(10);
@@ -252,4 +255,52 @@ input[type="radio"]::after {
     transform: scale(0);
     opacity: 0.2;
     transition: 0s;
+}
+
+.overwrite-time-padding {
+    position: absolute;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.overwrite-mode button {
+    display: none;
+}
+
+.overwrite-mode button[data-action="lrcOverwrite"] {
+    display: initial;
+    background-color: #000000;
+}
+
+.overwrite-mode textarea {
+    padding-bottom: 50vh;
+    line-height: 300%;
+    white-space: nowrap;
+}
+
+.overwrite-mode #input {
+    opacity: 0.7;
+    pointer-events: none;
+    scrollbar-width: none;
+}
+
+.overwrite-mode #input::-webkit-scrollbar {
+    display: none;
+}
+
+#overwrite {
+    position: absolute;
+    top: 0;
+    right: 50%;
+    bottom: 0;
+    left: 0;
+    display: none;
+    padding-top: calc(70px + 1.5em);
+    padding-bottom: calc(50vh - 1.5em);
+    color: #f58ea8;
+    color: var(--theme-color);
+}
+
+.overwrite-mode #overwrite {
+    display: flex;
 }

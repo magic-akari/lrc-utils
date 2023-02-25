@@ -32,6 +32,7 @@
                 <button class="ripple" data-action="removeEmpty">空行移除</button>
                 <button class="ripple" data-action="changeOffset">时间偏移</button>
                 <button class="ripple" data-action="splitTranslation">翻译拆分</button>
+                <button class="ripple" data-action="lrcOverwrite">歌词覆写</button>
             </section>
         </header>
 
@@ -43,7 +44,6 @@
                 autocorrect="off"
                 spellcheck="false"
             ></textarea>
-
             <textarea
                 id="output"
                 autocapitalize="off"
@@ -51,7 +51,15 @@
                 autocorrect="off"
                 spellcheck="false"
             ></textarea>
+            <textarea
+                id="overwrite"
+                autocapitalize="off"
+                autocomplete="off"
+                autocorrect="off"
+                spellcheck="false"
+            ></textarea>
         </main>
+        <span class="overwrite-time-padding"></span>
 
         <details class="dialog time-transform">
             <summary></summary>

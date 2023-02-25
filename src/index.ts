@@ -1,11 +1,12 @@
 import { compressTags } from "./compress-tags.js";
-import { ILyric, parser, stringify } from "./lrc-parser.js";
+import { ILyric, parser, State, stringify } from "./lrc-parser.js";
 
 const $ = (arg: string) => document.querySelector(arg);
 
 const back = $(".back") as HTMLSpanElement;
 const input = $("#input") as HTMLTextAreaElement;
 const output = $("#output") as HTMLTextAreaElement;
+const overwrite = $("#overwrite") as HTMLTextAreaElement;
 const actions = $(".actions") as HTMLElement;
 const timeTransform = $("#time-transform") as HTMLFormElement;
 const timeTransformDialog = $(".time-transform.dialog") as HTMLDetailsElement;
@@ -22,9 +23,12 @@ interface Ipreferences {
     themeColor: string;
 }
 
-const { fixed = 3, spaceStart = 1, spaceEnd = 0, themeColor = "#f58ea8" }: Ipreferences = JSON.parse(
-    localStorage.getItem("lrc-maker-preferences") || "{}"
-);
+const {
+    fixed = 3,
+    spaceStart = 1,
+    spaceEnd = 0,
+    themeColor = "#f58ea8",
+}: Ipreferences = JSON.parse(localStorage.getItem("lrc-maker-preferences") || "{}");
 
 const trimOptions = {
     trimStart: spaceStart >= 0,
@@ -92,6 +96,12 @@ actions.addEventListener("click", (ev) => {
 
         case "splitTranslation": {
             splitTranslationDialog.open = true;
+            return;
+        }
+
+        case "lrcOverwrite": {
+            overwriteState.value = !overwriteState.value;
+            overwrite.focus();
             return;
         }
     }
@@ -188,6 +198,73 @@ splitTranslation.addEventListener("submit", (ev) => {
     ev.preventDefault();
     splitTranslationDialog.open = false;
     return false;
+});
+
+const lrcOverWriteText = {
+    get value() {
+        return sessionStorage.getItem("lrc-maker-overwrite") || "";
+    },
+    set value(v) {
+        sessionStorage.setItem("lrc-maker-overwrite", v);
+    },
+};
+
+overwrite.value = lrcOverWriteText.value;
+
+let isOverwrite = false;
+const timePadding = $(".overwrite-time-padding") as HTMLSpanElement;
+
+timePadding.innerText = stringify(
+    {
+        info: new Map(),
+        lyric: [
+            {
+                time: 0,
+                text: "",
+            },
+        ],
+    },
+    formatOptions
+);
+
+overwrite.style.paddingLeft = `${timePadding.getBoundingClientRect().width + 10}px`;
+
+const overwriteState = {
+    state: {} as State,
+    get value() {
+        return isOverwrite;
+    },
+    set value(v) {
+        isOverwrite = v;
+        if (v) {
+            document.body.classList.add("overwrite-mode");
+            this.state = parser(input.value, trimOptions);
+            input.value = stringify(this.state, formatOptions);
+        } else {
+            document.body.classList.remove("overwrite-mode");
+        }
+    },
+    render(text: string) {
+        const lyric: ILyric[] = text
+            .split("\n")
+            .slice(this.state.info.size)
+            .map((text, i) => {
+                return { time: this.state.lyric[i]?.time, text };
+            });
+
+        const newState: State = { info: this.state.info, lyric };
+        return stringify(newState, formatOptions);
+    },
+};
+
+overwrite.addEventListener("input", () => {
+    lrcOverWriteText.value = overwrite.value;
+    output.value = overwriteState.render(overwrite.value);
+});
+
+overwrite.addEventListener("scroll", () => {
+    output.scrollTop = input.scrollTop = overwrite.scrollTop;
+    output.scrollLeft = input.scrollLeft = overwrite.scrollLeft;
 });
 
 const main = () => {

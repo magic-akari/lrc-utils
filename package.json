@@ -10,7 +10,7 @@
         "build": "tsc -b",
         "postbuild": "cp src/*.html src/*.css build/"
     },
-    "packageManager": "pnpm@8.8.0",
+    "packageManager": "pnpm@9.12.2",
     "dependencies": {
         "@lrc-maker/lrc-parser": "^0.1.17"
     },

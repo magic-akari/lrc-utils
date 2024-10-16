@@ -1,27 +1,33 @@
-lockfileVersion: '6.0'
+lockfileVersion: '9.0'
 
 settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-dependencies:
-  '@lrc-maker/lrc-parser':
-    specifier: ^0.1.17
-    version: 0.1.17
+importers:
 
-devDependencies:
-  typescript:
-    specifier: ^5.0.0
-    version: 5.2.2
+  .:
+    dependencies:
+      '@lrc-maker/lrc-parser':
+        specifier: ^0.1.17
+        version: 0.1.17
+    devDependencies:
+      typescript:
+        specifier: ^5.0.0
+        version: 5.2.2
 
 packages:
 
-  /@lrc-maker/lrc-parser@0.1.17:
+  '@lrc-maker/lrc-parser@0.1.17':
     resolution: {integrity: sha512-oDlWDDsiHcOdEsQSnBPdQRIu5KFG96nJmOU3XI6g6F8HsTbq4S6IekRCyDQ6OhbJOrfjpsh15TLJFO7Bx+epJg==}
-    dev: false
 
-  /typescript@5.2.2:
+  typescript@5.2.2:
     resolution: {integrity: sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==}
     engines: {node: '>=14.17'}
     hasBin: true
-    dev: true
+
+snapshots:
+
+  '@lrc-maker/lrc-parser@0.1.17': {}
+
+  typescript@5.2.2: {}
